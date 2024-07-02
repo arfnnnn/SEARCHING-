@@ -1,0 +1,52 @@
+perpustakaan = []
+
+def tambah_buku():
+    # Fungsi untuk menambahkan buku ke dalam perpustakaan
+    judul = input("Masukkan judul buku: ")
+    penulis = input("Masukkan nama-nama penulis (dipisahkan dengan koma): ")
+    tahun = input("Masukkan tahun terbit: ")
+    
+    buku = {"judul": judul, "penulis": penulis.split(", "), "tahun": tahun}
+    perpustakaan.append(buku)
+    print("Buku '{}' berhasil ditambahkan ke perpustakaan!".format(judul))
+
+def cari_buku(nama_orang):
+    # Fungsi untuk mencari buku berdasarkan nama orang
+    hasil = []
+    for buku in perpustakaan:
+        if any(nama_orang.lower() in penulis.lower() for penulis in buku["penulis"]):
+            hasil.append(buku)
+    return hasil
+
+def tampilkan_buku(buku):
+    # Fungsi untuk menampilkan daftar buku
+    if not buku:
+        print("Tidak ada buku yang ditemukan.")
+    else:
+        print("Buku yang ditemukan:")
+        for item in buku:
+            penulis = ", ".join(item["penulis"])
+            print(f"Judul: {item['judul']}, Penulis: {penulis}, Tahun: {item['tahun']}")
+
+def main():
+    while True:
+        print("\nMenu Perpustakaan:")
+        print("1. Tambah Buku")
+        print("2. Cari Buku")
+        print("3. Keluar")
+        pilihan = input("Pilih menu (1/2/3): ")
+        
+        if pilihan == '1':
+            tambah_buku()
+        elif pilihan == '2':
+            nama_orang = input("Masukkan nama orang yang ingin dicari: ")
+            hasil = cari_buku(nama_orang)
+            tampilkan_buku(hasil)
+        elif pilihan == '3':
+            print("Terima kasih telah menggunakan perpustakaan!")
+            break
+        else:
+            print("Pilihan tidak valid. Silakan coba lagi.")
+
+if __name__ == "__main__":
+    main()
